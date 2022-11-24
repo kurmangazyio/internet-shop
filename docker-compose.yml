@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+    # App service
+    shop:
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile
+        image: php:8.1.12-fpm
+        privileged: true
+        container_name: shop
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: shop
+            SERVICE_TAGS: dev
+        working_dir: /var/www/html/
+        volumes:
+            - ./:/var/www/html/
+            - ./docker/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+        networks:
+            - app-network
+
+    # Web server
+    shop_webserver:
+        image: nginx:alpine
+        container_name: shop_webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8000:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www/html/
+            - ./docker/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+#Docker Networks
+networks:
+    app-network:
+        driver: bridge
