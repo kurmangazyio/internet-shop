@@ -1,7 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\API\Authenticate\RegisterController;
+use App\Http\Controllers\API\Authenticate\SignInController;
+use App\Http\Controllers\API\Authenticate\UserController;
+
+use App\Http\Controllers\API\Categories\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::post('sign-in', SignInController::class)->name('sign-in');
+    Route::post('register', RegisterController::class)->name('register');
+
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::get('user', UserController::class)->name('user-info');
+    });
 });
+
+Route::get('categories', CategoryController::class)->name('categories');

@@ -35,6 +35,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -LsS https://codeception.com/codecept.phar -o /usr/local/bin/codecept && chmod a+x /usr/local/bin/codecept
 
 RUN docker-php-ext-install intl opcache pdo pdo_pgsql pgsql mbstring zip exif pcntl
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 

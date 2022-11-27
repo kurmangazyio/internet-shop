@@ -20,6 +20,21 @@ services:
         networks:
             - app-network
 
+    #MySQL database
+    database:
+        image: mysql:5.7.22
+        container_name: db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: shop
+            MYSQL_ROOT_PASSWORD: root
+            SERVICE_TAGS: laravel
+            SERVICE_NAME: mysql
+        networks:
+            - app-network
     # Web server
     shop_webserver:
         image: nginx:alpine
@@ -34,7 +49,6 @@ services:
             - ./docker/conf.d/:/etc/nginx/conf.d/
         networks:
             - app-network
-
 #Docker Networks
 networks:
     app-network:

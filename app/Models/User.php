@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property string password
+ */
 final class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -21,6 +24,7 @@ final class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
         'password',
     ];
@@ -43,4 +47,29 @@ final class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function hasUser(string $email): bool
+    {
+        return User::where('email', $email)->exists();
+    }
+
+    public static function getUser(string $email): User | null
+    {
+        return User::where('email', $email)->first();
+    }
+
+    public static function createUser(string $name, string $surname, string $email, string $password): User
+    {
+        return User::create([
+            'name' => $name,
+            'surname' => $surname,
+            'email' => $email,
+            'password' => $password,
+        ]);
+    }
+
+    public static function passwordMatch(string $email, string $password): bool
+    {
+        return User::where('email', $email)->where('password', $password)->exists();
+    }
 }

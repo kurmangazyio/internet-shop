@@ -5,10 +5,24 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@vue/babel-plugin-jsx": "^1.1.1",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^3.0.0"
+    },
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.44.0",
+        "@typescript-eslint/parser": "^5.44.0",
+        "@vitejs/plugin-vue": "^3.2.0",
+        "@vitejs/plugin-vue-jsx": "^2.1.1",
+        "@vue/compiler-sfc": "^3.2.45",
+        "@vuedx/typescript-plugin-vue": "^0.7.6",
+        "autoprefixer": "^10.4.13",
+        "eslint": "^8.28.0",
+        "typescript": "^4.9.3",
+        "vue": "^3.2.36",
+        "vue-loader": "^17.0.1"
     }
 }
